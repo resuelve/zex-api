@@ -1,0 +1,23 @@
+{
+  "name": "zex-api",
+  "version": "1.0.0",
+  "description": "El Api de Zex en Node",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resuelve/zex-api.git"
+  },
+  "keywords": [
+    "Zex",
+    "Api"
+  ],
+  "author": "Carlos Flores <carlos.flores@resuelve.mx>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/resuelve/zex-api/issues"
+  },
+  "homepage": "https://github.com/resuelve/zex-api#readme"
+}
