@@ -1,0 +1,25 @@
+routes:
+  /:
+    get:
+      group: root
+      controller: main.serverInfo
+      description: Muestra esta pantalla
+  /info:
+    get:
+      group: root
+      controller: main.serverInfoJson
+      description: Muestra el healthcheck en formato JSON
+  /v1:
+    middleware:
+      - controller: auth.requireLogin
+        description: Auth requerida para acceder
+    get:
+      group: root
+      controller: main.redirectToRoot
+      description: Hace un simple redirect a /
+    routes:
+      /token/refresh:
+        get:
+          group: v1/token
+          controller: auth.refreshToken
+          description: Decodifica el token provisto, valida el usuario y regresa un nuevo token para seguir usando

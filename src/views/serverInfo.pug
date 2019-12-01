@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap" rel="stylesheet")
+    style.
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        --background: rgb(236,240,241);
+        --accent: rgb(41,128,185);
+        --foreground: rgb(44,62,80);
+        --methodWidth: 100px;
+        font-family: sans-serif;
+        font-size: 14px;
+        background-color: var(--background);
+        color: var(--foreground);
+      }
+      pre {
+        background-color: #446;
+        color: var(--background);
+        font-family: 'Source Code Pro', monospace;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--accent);
+        color: var(--background);
+      }
+      .header, .group, .routes {
+        padding: 10px;
+      }
+      .routes {
+        font-family: 'Source Code Pro', monospace;
+      }
+      label {
+        font-size: 2em;
+        font-weight: 700;
+        cursor: pointer;
+        user-select: none;
+      }
+      .route {
+        background-color: var(--rowbg);
+        padding: 4px;
+        border: 2px solid var(--methodbg);
+        border-radius: 4px;
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+      .route .row{
+        display: flex;
+        align-items: center;
+      }
+      .route.get {
+        --methodbg: rgb(39,174,96);
+        --methodfg: var(--background);
+        --rowbg: rgba(39,174,96,0.1);
+      }
+      .route.post {
+        --methodbg: rgb(52,152,219);
+        --methodfg: var(--background);
+        --rowbg: rgba(52,152,219,0.1);
+      }
+      .route.put {
+        --methodbg: rgb(243,156,18);
+        --methodfg: var(--background);
+        --rowbg: rgba(243,156,18,0.1);
+      }
+      .route.delete {
+        --methodbg: rgb(192,57,43);
+        --methodfg: var(--background);
+        --rowbg: rgba(192,57,43,0.1);
+      }
+      .method {
+        width: var(--methodWidth);
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 1.2em;
+        font-weight: 700;
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: var(--methodbg);
+        color: var(--methodfg);
+      }
+      .middlewares, .desc {
+        padding-left: calc(var(--methodWidth) + 10px);
+      }
+      .path {
+        padding: 0 10px;
+        font-weight: 700;
+        font-size: 1.1em;
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+      }
+      li {
+        margin-left: 20px;
+      }
+      input {
+        display: none;
+      }
+      input[type=checkbox] + .rholder {
+        height: 0;
+        overflow: hidden;
+      }
+      input[type=checkbox]:checked + .rholder {
+        height: auto;
+      }
+    title Zex Info
+  body
+    .header
+      .description #{description}
+      .timestamp #{new Date(timestamp)}
+      .version Versión: #{version}
+
+    .routes
+      each defs, group in routeDefs
+        .group
+          label(for=`tg-${group}`)
+            |#{group}
+          input(type="checkbox", id=`tg-${group}`, checked)
+          .rholder
+            each route in defs
+              .route(class=`${route.method}`)
+                .row
+                  .method #{route.method}
+                  .path #{route.path}
+                .desc #{route.description}
+                ul.middlewares
+                  each middleware in route.middlewares
+                    li #{middleware.description}
+
+    //- pre.routeDefs #{JSON.stringify(routeDefs, false, 2)}
